@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "20137639642",
+    "firebase_url": "https://student-calendar-93908.firebaseio.com",
+    "project_id": "student-calendar-93908",
+    "storage_bucket": "student-calendar-93908.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:20137639642:android:4a94f9e9e869d8b03f6fe3",
+        "android_client_info": {
+          "package_name": "com.uthhn.student_calendar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "20137639642-frskif1b5eq1hedarpmp5hfe7ktff9ls.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.uthhn.student_calendar",
+            "certificate_hash": "fad3adcd3bc3b3d4e12b22382d77c0a341c7ac9a"
+          }
+        },
+        {
+          "client_id": "20137639642-fbg6o6hvf3ad2rq3loo4edq93npgoh6r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATVy0VskMrBVsLDfEu9llZRk_jJAlk0L8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "20137639642-fbg6o6hvf3ad2rq3loo4edq93npgoh6r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
