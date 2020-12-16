@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:student_calendar/src/controller/chart_controller.dart';
 import 'package:student_calendar/src/controller/menu_controller.dart';
 import 'package:student_calendar/src/provider/data_provider.dart';
 import 'package:student_calendar/src/provider/preferencias.dart';
@@ -17,7 +16,6 @@ class ResumenPage extends StatefulWidget {
 }
 
 final paginaController = Get.find<MenuController>();
-final controller = Get.put<ChartController>(ChartController());
 
 int date = DateTime.now().day;
 Map<DateTime, int> listaTotal = {};
