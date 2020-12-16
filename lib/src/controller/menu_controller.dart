@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:student_calendar/src/provider/data_provider.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 
 class MenuController extends GetxController{
 
   RxInt _index = 0.obs;
-  RxList _selections = (List.generate(7, (_) => false)).obs;
-  RxString _pagina = "Resumen".obs;
+  RxList _selections = (List.generate(8, (_) => false)).obs;
+  RxString _pagina = 'Resumen'.obs;
   final _pageController = PageController();
   
   set index(int index){
@@ -25,6 +27,9 @@ class MenuController extends GetxController{
  String get pagina => this._pagina.value;
 
  List get selections => this._selections;
+
+
+
 
 }
 

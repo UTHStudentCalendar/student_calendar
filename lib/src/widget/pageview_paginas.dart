@@ -8,6 +8,7 @@ import 'package:student_calendar/src/pages/calificaciones_page.dart';
 import 'package:student_calendar/src/pages/examenes_page.dart';
 import 'package:student_calendar/src/pages/horario_page.dart';
 import 'package:student_calendar/src/pages/resumen_page.dart';
+import 'package:student_calendar/src/pages/tareas_page.dart';
 
 class PageViewPagina extends StatelessWidget {
    PageViewPagina({Key key}) : super(key: key);
@@ -23,7 +24,7 @@ class PageViewPagina extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         physics: NeverScrollableScrollPhysics(),
         controller: paginaController.pageController,
-        children: [ResumenPage(), CalendarioPage(), AgendaPage(),HorarioPage(), ExamenesPage(), AsignaturaPage(),CalificacionesPage()],
+        children: [CalendarioPage(), ResumenPage(), AgendaPage(),HorarioPage(), AsignaturaPage(), ExamenesPage(),CalificacionesPage(),TareaPage()],
       ),
         
     );

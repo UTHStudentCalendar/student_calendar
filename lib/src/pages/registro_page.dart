@@ -10,15 +10,13 @@ class RegistroPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
+    return Scaffold(
             appBar: AppBar(
               title: Text(""),
               backgroundColor: Colors.blue[600],
               elevation: 0.0,
             ),
-            body: Page()));
+            body: Page());
   }
 }
 
@@ -52,17 +50,9 @@ class _PageState extends State<Page> {
           SizedBox(height: 20),
           FadeInImage(
             placeholder: AssetImage('assets/imgs/loader.gif'),
-            image: AssetImage('assets/imgs/logo.png'),
+             image: AssetImage("assets/imgs/logo.jpg"),
+            height: 80,
             fit: BoxFit.cover,
-            height: 60.0,
-          ),
-          SizedBox(height: 20),
-          Text(
-            "Student Calendar",
-            style: Theme.of(context)
-                .textTheme
-                .headline4
-                .copyWith(color: Colors.white),
           ),
           SizedBox(height: 20),
           Container(
@@ -151,9 +141,7 @@ class _PageState extends State<Page> {
           SizedBox(height: 20),
           FlatButton(
               onPressed: () {
-                MaterialPageRoute route =
-                    MaterialPageRoute(builder: (context) => LoginPage());
-                Navigator.push(context, route);
+                Navigator.pushReplacementNamed(context, 'home');
               },
               child: Text(
                 "Iniciar sesión",

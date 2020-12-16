@@ -4,14 +4,14 @@ import 'package:student_calendar/src/controller/menu_controller.dart';
 import 'package:student_calendar/src/provider/preferencias.dart';
 import 'package:toast/toast.dart';
 
-class AgregarExamenPage extends StatefulWidget {
-  AgregarExamenPage({Key key}) : super(key: key);
+class AgregarTarePage extends StatefulWidget {
+  AgregarTarePage({Key key}) : super(key: key);
 
   @override
-  _AgregarExamenPageState createState() => _AgregarExamenPageState();
+  _AgregarTarePageState createState() => _AgregarTarePageState();
 }
 
-class _AgregarExamenPageState extends State<AgregarExamenPage> {
+class _AgregarTarePageState extends State<AgregarTarePage> {
   final paginaController = MenuController();
   TextEditingController _nombreController = new TextEditingController();
   TextEditingController _descripcionController = new TextEditingController();
@@ -44,7 +44,7 @@ class _AgregarExamenPageState extends State<AgregarExamenPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Agregar Examenes"),
+        title: Text("Agregar Tarea"),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -95,7 +95,7 @@ class _AgregarExamenPageState extends State<AgregarExamenPage> {
                     borderRadius: BorderRadius.circular(8.0)),
                     hintText: 'Seleccione una fecha',
                     labelText: 'Seleccione una fecha:',
-                    prefixIcon: Icon(Icons.calendar_today_sharp,color: Colors.blue,)),
+                    prefixIcon: Icon(Icons.calendar_today, color: Colors.blue,)),
                 onTap: ()  {
                   FocusScope.of(context).requestFocus(new FocusNode());
                     _mostrarCalendario(context);
@@ -133,7 +133,7 @@ class _AgregarExamenPageState extends State<AgregarExamenPage> {
                       "descripcion": _descripcion,
                       "asignatura": _asignatura,
                       "fecha": _fecha,
-                      "categoria": 'Examen',
+                      "categoria": 'Tarea',
                       'id_usuario' : PreferenciasUsuario().usuario
                     }).then((value) {
                       Toast.show('Agregado', context,
@@ -146,9 +146,9 @@ class _AgregarExamenPageState extends State<AgregarExamenPage> {
                   }
                   
                      Navigator.pop(context);
-                   paginaController.index = 5 ;
-                   paginaController.pagina = 'Examenes' ;
-                     for (int i = 0; i < 7; i++) {
+                   paginaController.index = 7 ;
+                   paginaController.pagina = 'Tareas' ;
+                     for (int i = 0; i < 8; i++) {
                   if (i == 2)
                     paginaController.selections[i] = true;
                   else
@@ -171,11 +171,13 @@ class _AgregarExamenPageState extends State<AgregarExamenPage> {
       firstDate: DateTime(2019),
       lastDate: DateTime(2022),
     );
+    print("fecha $fecha");
     if (fecha != null){
     setState(() {
       i++;
      _fechaController.text = fecha.toString(); 
      _fecha = fecha;
+     print("_fecha $_fecha");
     });
     }
   }

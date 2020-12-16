@@ -4,25 +4,23 @@ import 'package:student_calendar/src/controller/menu_controller.dart';
 import 'package:student_calendar/src/provider/preferencias.dart';
 import 'package:toast/toast.dart';
 
-class AgregarExamenPage extends StatefulWidget {
-  AgregarExamenPage({Key key}) : super(key: key);
+class AgregarCalificacionPage extends StatefulWidget {
+  AgregarCalificacionPage({Key key}) : super(key: key);
 
   @override
-  _AgregarExamenPageState createState() => _AgregarExamenPageState();
+  _AgregarCalificacionPageState createState() => _AgregarCalificacionPageState();
 }
 
-class _AgregarExamenPageState extends State<AgregarExamenPage> {
+class _AgregarCalificacionPageState extends State<AgregarCalificacionPage> {
   final paginaController = MenuController();
   TextEditingController _nombreController = new TextEditingController();
   TextEditingController _descripcionController = new TextEditingController();
-  TextEditingController _asignaturaController = new TextEditingController();
-  TextEditingController _fechaController = new TextEditingController();
+  TextEditingController _calificacionController  = new TextEditingController();
   int i = 0;
-  DateTime _fecha;
-  Timestamp fechaT;
+
   String _nombre = '';
   String  _descripcion ='';
-  String _asignatura = '';
+  String _calificacion = '';
    Map<String, dynamic> item ;
 
   @override
@@ -32,19 +30,16 @@ class _AgregarExamenPageState extends State<AgregarExamenPage> {
      item = data.data() ;
     _nombre =  item['nombre'] ;
     _descripcion = item['descripcion'] ;
-    _asignatura = item['asignatura'] ;
-    fechaT = item['fecha'];
-    _fecha =  fechaT.toDate();
+    _calificacion = item['calificacion'] ;
     
       _nombreController.text = _nombre;
       _descripcionController.text = _descripcion;
-      _asignaturaController.text = _asignatura;
-      _fechaController.text = _fecha.toString();
+      _calificacionController.text = _calificacion;
     }
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Agregar Examenes"),
+        title: Text("Agregar Calificacion"),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -53,10 +48,10 @@ class _AgregarExamenPageState extends State<AgregarExamenPage> {
               margin: EdgeInsets.all(10.0),
               child: TextField(
                 decoration: InputDecoration(
-                    hintText: "Nombre",
+                    hintText: "Asignatura",
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.0)),
-                    labelText: "Nombre",
+                    labelText: "Asignatura",
                     prefixIcon: Icon(Icons.text_format_sharp,color: Colors.blue,)),
                 controller: _nombreController,
               ),
@@ -76,45 +71,28 @@ class _AgregarExamenPageState extends State<AgregarExamenPage> {
             Container(
               margin: EdgeInsets.all(10.0),
               child: TextField(
+                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
-                    hintText: "Asignatura",
+                    hintText: "Calificacion",
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.0)),
-                    labelText: "Asignatura",
-                    prefixIcon: Icon(Icons.assignment, color: Colors.blue,)),
-                controller: _asignaturaController,
+                    labelText: "Calificacion",
+                    prefixIcon: Icon(Icons.format_list_numbered, color: Colors.blue,)),
+                controller: _calificacionController,
               ),
             ),
-           Container(
-              margin: EdgeInsets.all(10.0),
-              child: TextField(
-                controller: _fechaController,
-                keyboardType: TextInputType.datetime,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0)),
-                    hintText: 'Seleccione una fecha',
-                    labelText: 'Seleccione una fecha:',
-                    prefixIcon: Icon(Icons.calendar_today_sharp,color: Colors.blue,)),
-                onTap: ()  {
-                  FocusScope.of(context).requestFocus(new FocusNode());
-                    _mostrarCalendario(context);
-                },
-              )
-              ),
-            
+                       
             RaisedButton(
               color: Colors.blue,
               onPressed: () {
                  setState(() {
                   i++;
-                  print("_fecha $_fecha");
                   _nombre = _nombreController.text;
                   _descripcion = _descripcionController.text;
-                  _asignatura = _asignaturaController.text;
+                  _calificacion = _calificacionController.text;
                 });
                 
-                if (_nombre != '' && _descripcion != '' && _asignatura != '') {
+                if (_nombre != '' && _descripcion != '' && _calificacion != '') {
                   if (data != null) {
                     FirebaseFirestore.instance
                         .collection("student_calendar")
@@ -122,8 +100,7 @@ class _AgregarExamenPageState extends State<AgregarExamenPage> {
                         .update({
                       "nombre": _nombre,
                       "descripcion": _descripcion,
-                      "asignatura": _asignatura,
-                      "fecha": _fecha
+                      "calificacion": _calificacion,
                     }).then((value) => Toast.show('Actualizado', context,
                             duration: Toast.LENGTH_LONG,
                             gravity: Toast.BOTTOM));
@@ -131,24 +108,22 @@ class _AgregarExamenPageState extends State<AgregarExamenPage> {
                     FirebaseFirestore.instance.collection("student_calendar").add({
                       "nombre": _nombre,
                       "descripcion": _descripcion,
-                      "asignatura": _asignatura,
-                      "fecha": _fecha,
-                      "categoria": 'Examen',
+                      "calificacion": _calificacion,
+                      "categoria": 'Calificacion',
                       'id_usuario' : PreferenciasUsuario().usuario
                     }).then((value) {
                       Toast.show('Agregado', context,
                           duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
                       _descripcionController.text = '';
-                      _fechaController.text = '';
                       _nombreController.text = '';
-                      _asignaturaController.text = "";
+                      _calificacionController.text = "";
                     });
                   }
                   
-                     Navigator.pop(context);
-                   paginaController.index = 5 ;
-                   paginaController.pagina = 'Examenes' ;
-                     for (int i = 0; i < 7; i++) {
+                   Navigator.pop(context);
+                   paginaController.index = 6 ;
+                   paginaController.pagina = 'Calificaciones' ;
+                     for (int i = 0; i < 8; i++) {
                   if (i == 2)
                     paginaController.selections[i] = true;
                   else
@@ -164,19 +139,4 @@ class _AgregarExamenPageState extends State<AgregarExamenPage> {
     );
   }
 
-  void _mostrarCalendario(BuildContext context) async {
-  DateTime fecha = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2019),
-      lastDate: DateTime(2022),
-    );
-    if (fecha != null){
-    setState(() {
-      i++;
-     _fechaController.text = fecha.toString(); 
-     _fecha = fecha;
-    });
-    }
-  }
 }

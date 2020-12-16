@@ -4,16 +4,20 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:student_calendar/src/provider/preferencias.dart';
 import 'package:toast/toast.dart';
 
-class HorarioPage extends StatelessWidget {
-  const HorarioPage({Key key}) : super(key: key);
+class TareaPage extends StatelessWidget {
+  const TareaPage({Key key}) : super(key: key);
 
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-          body:  listas(),
+          body:  Column(
+            children: [
+              SizedBox(height: 5,),
+              Expanded(child: listas()),
+            ],
+          ),
        floatingActionButton: FloatingActionButton(onPressed: (){
-       Navigator.pushNamed(context, 'agregarHorario');
+       Navigator.pushNamed(context, 'agregarTarea');
        }, child: Icon(Icons.add)),
     );
   }
@@ -23,14 +27,14 @@ class HorarioPage extends StatelessWidget {
       child: StreamBuilder(
           stream: FirebaseFirestore.instance
               .collection('student_calendar')
-              .where('categoria', isEqualTo: "Horario")
+              .where('categoria', isEqualTo: "Tarea")
               .where('id_usuario', isEqualTo: PreferenciasUsuario().usuario)
               .orderBy('fecha', descending: false)
               .snapshots(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-             return Center(child: CircularProgressIndicator());
+              return CircularProgressIndicator();
             }
 
             if (snapshot.hasError) {
@@ -43,7 +47,7 @@ class HorarioPage extends StatelessWidget {
                   itemCount: snapshot.data.size,
                   itemBuilder: (context, index) {
                     Map<String, dynamic> item = data[index].data();
-                     Timestamp date = item['fecha'];
+                    Timestamp date = item['fecha'];
                     return Slidable(
                       actionPane: SlidableDrawerActionPane(),
                       actionExtentRatio: 0.25,
@@ -52,7 +56,7 @@ class HorarioPage extends StatelessWidget {
                           caption: 'Editar',
                           color: Colors.green,
                           onTap: () {
-                            Navigator.of(context).pushNamed( 'agregarHorario', arguments: data[index]);
+                            Navigator.of(context).pushNamed( 'agregarTarea', arguments: data[index]);
                           },
                           icon: Icons.edit,
                         )
@@ -86,14 +90,14 @@ class HorarioPage extends StatelessWidget {
                           color: Colors.blue,
                         ),
                         title: Text(
-                          item['asignatura'] ?? '',
+                          item['nombre'] ?? '',
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                             Text('${item['horai']+' - '+ item['horaf'] ?? ''}', style: TextStyle(fontSize: 15, color: Colors.blue),),
-                            
+                            Text('${item['descripcion'] ?? ''}', style: TextStyle(fontSize: 15, color: Colors.blue),),
+                            Text('${item['categoria'] ?? ''}'),
                           ],
                         ),
                         trailing: Text(
@@ -105,7 +109,7 @@ class HorarioPage extends StatelessWidget {
                     );
                   });
             } else {
-              return Center(child: Text("Agregue nuevos elementos al horario"));
+              return Center(child: Text("Agregue nuevas tareas"));
             }
           }),
     );

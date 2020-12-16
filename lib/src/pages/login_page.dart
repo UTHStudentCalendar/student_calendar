@@ -10,15 +10,15 @@ class LoginPage extends StatelessWidget {
   LoginPage({Key key}) : super(key: key);
 
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
+    return Scaffold(
             appBar: AppBar(
               title: Text(""),
               backgroundColor: Colors.blue[600],
               elevation: 0.0,
             ),
-            body: Page()));
+            body: Page()
+            
+            );
   }
 }
 
@@ -48,21 +48,13 @@ class _PageState extends State<Page> {
         color: Colors.blue[600],
         padding: EdgeInsets.all(7.0),
         child: Column(children: [
-          SizedBox(height: 20),
+          SizedBox(height: 30),
           FadeInImage(
             placeholder: AssetImage("assets/imgs/loader.gif"),
-            image: AssetImage("assets/imgs/logo.png"),
-            height: 60,
+            image: AssetImage("assets/imgs/logo.jpg"),
+            height: 80,
           ),
-          SizedBox(height: 20),
-          Text(
-            "Student Calendar",
-            style: Theme.of(context)
-                .textTheme
-                .headline4
-                .copyWith(color: Colors.white),
-          ),
-          SizedBox(height: 20),
+          SizedBox(height: 30),
           Container(
             margin: EdgeInsets.all(15),
             decoration: BoxDecoration(
@@ -159,7 +151,7 @@ class _PageState extends State<Page> {
               onPressed: () {
                 MaterialPageRoute route =
                     MaterialPageRoute(builder: (context) => RegistroPage());
-                Navigator.push(context, route);
+                Navigator.pushReplacement(context, route);
               },
               child: Text(
                 "Registrarse",
@@ -195,9 +187,7 @@ class _PageState extends State<Page> {
         UserCredential firebaseCredencial = await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: _correo, password: _contra);
         preferencias.usuario = firebaseCredencial.user.uid;
-        MaterialPageRoute route =
-            MaterialPageRoute(builder: (context) => HomePage());
-        Navigator.pushReplacement(context, route);
+        Navigator.pushReplacementNamed(context, 'inicio');
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found') {
           Toast.show('Usuario no encontrado', context,

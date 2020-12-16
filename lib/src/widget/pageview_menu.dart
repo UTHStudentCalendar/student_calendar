@@ -8,19 +8,20 @@ class PageViewMenu extends StatelessWidget {
   final paginaController = Get.find<MenuController>();
 
   final List<String> opciones = [
-    'Resumen',
     'Calendario',
+    'Resumen',
     'Agenda',
     'Horario',
-    'Examenes',
     'Asignatura',
+    'Examenes',
     'Calificaciones',
+    'Tareas'
   ];
 
   @override
   Widget build(BuildContext context) {
-    paginaController.selections[0] = true;
-    paginaController.pagina = 'Resumen';
+  paginaController.selections[0] = true;
+    paginaController.pagina = 'Calendario';
     for (int i = 1; i < opciones.length; i++) {
       paginaController.selections[i] = false;
     }
